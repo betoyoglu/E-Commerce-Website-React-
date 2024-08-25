@@ -1,36 +1,54 @@
-import React from "react";
-import {TableRow,TableHeaderCell,TableHeader,TableFooter,TableCell,TableBody,MenuItem,Icon,Label,Menu,Table,} from 'semantic-ui-react'
+import React, { useState, useEffect} from "react";
+import {
+  TableRow,
+  TableHeaderCell,
+  TableHeader,
+  TableFooter,
+  TableCell,
+  TableBody,
+  MenuItem,
+  Icon,
+  Menu,
+  Table,
+} from "semantic-ui-react";
+import ProductService from "../services/productService";
 
 export default function ProductList() {
+  const [products, setProducts] = useState([]); //products diye bi datam var. defaul değeri [] ve ben bunu değiştirmek için setProducts kullanıcam >> hooks
+
+  //sayfa yüklendiğinde yapılmasını istediğimiz kod >> useeffect
+  useEffect(() => {
+    let productService = new ProductService();
+    productService
+      .getProducts()
+      .then((result) => setProducts(result.data.data));
+  }, []);
+  
+  //table rowu gelen ürün sayısı kadar tekrar etmem gerekiyor
+
   return (
     <div>
       <Table celled>
         <TableHeader>
           <TableRow>
-            <TableHeaderCell>Header</TableHeaderCell>
-            <TableHeaderCell>Header</TableHeaderCell>
-            <TableHeaderCell>Header</TableHeaderCell>
+            <TableHeaderCell>Ürün adı</TableHeaderCell>
+            <TableHeaderCell>Birim Fiyatı</TableHeaderCell>
+            <TableHeaderCell>Stok Adedi</TableHeaderCell>
+            <TableHeaderCell>Açıklama</TableHeaderCell>
+            <TableHeaderCell>Kategori</TableHeaderCell>
           </TableRow>
         </TableHeader>
 
         <TableBody>
-          <TableRow>
-            <TableCell>
-              <Label ribbon>First</Label>
-            </TableCell>
-            <TableCell>Cell</TableCell>
-            <TableCell>Cell</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Cell</TableCell>
-            <TableCell>Cell</TableCell>
-            <TableCell>Cell</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Cell</TableCell>
-            <TableCell>Cell</TableCell>
-            <TableCell>Cell</TableCell>
-          </TableRow>
+          {products.map((product) => (
+            <TableRow key={product.id}>
+              <TableCell>{product.productName}</TableCell>
+              <TableCell>{product.unitPrice}</TableCell>
+              <TableCell>{product.unitsInStock}</TableCell>
+              <TableCell>{product.quantityPerUnit}</TableCell>
+              <TableCell>{product.category ? product.category.categoryName : "Kategori Yok"}</TableCell>
+            </TableRow>
+          ))}
         </TableBody>
 
         <TableFooter>
