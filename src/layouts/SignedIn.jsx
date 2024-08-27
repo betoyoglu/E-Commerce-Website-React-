@@ -2,7 +2,7 @@ import React from 'react'
 import { Dropdown, DropdownItem, DropdownMenu, Image, MenuItem } from 'semantic-ui-react'
 import profilePhoto from './foto.jpg';
 
-export default function SignedIn() {
+export default function SignedIn(props) {
   return (
     <div>
         <MenuItem>
@@ -10,7 +10,7 @@ export default function SignedIn() {
         <Dropdown pointing="top left" text='betül'>
         <DropdownMenu>
             <DropdownItem text="Bilgilerim" icon="info"/>
-            <DropdownItem text="Çıkış yap" icon="sign-out"/>
+            <DropdownItem onClick={props.signOut} text="Çıkış yap" icon="sign-out"/>
         </DropdownMenu>
         </Dropdown>
         </MenuItem>
