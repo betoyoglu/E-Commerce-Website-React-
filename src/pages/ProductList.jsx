@@ -12,6 +12,7 @@ import {
   Table,
 } from "semantic-ui-react";
 import ProductService from "../services/productService";
+import {Link} from "react-router-dom";
 
 export default function ProductList() {
   const [products, setProducts] = useState([]); //products diye bi datam var. defaul değeri [] ve ben bunu değiştirmek için setProducts kullanıcam >> hooks
@@ -45,7 +46,7 @@ export default function ProductList() {
         <TableBody>
           {products.map((product) => (
             <TableRow key={product.id}>
-              <TableCell>{product.productName}</TableCell>
+              <TableCell><Link to={`/products/${product.id}`}>{product.productName}</Link></TableCell>
               <TableCell>{product.unitPrice}</TableCell>
               <TableCell>{product.unitsInStock}</TableCell>
               <TableCell>{product.quantityPerUnit}</TableCell>
