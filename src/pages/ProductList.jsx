@@ -21,7 +21,10 @@ export default function ProductList() {
     let productService = new ProductService();
     productService
       .getProducts()
-      .then((result) => setProducts(result.data.data));
+      .then((result) => {
+        setProducts(result.data.data);
+        console.log(result.data.data); // Burada API'den gelen veriyi konsola yazdırıyoruz
+      });
   }, []);
   
   //table rowu gelen ürün sayısı kadar tekrar etmem gerekiyor
@@ -46,7 +49,7 @@ export default function ProductList() {
               <TableCell>{product.unitPrice}</TableCell>
               <TableCell>{product.unitsInStock}</TableCell>
               <TableCell>{product.quantityPerUnit}</TableCell>
-              <TableCell>{product.category ? product.category.categoryName : "Kategori Yok"}</TableCell>
+              <TableCell>{product.category !== undefined && product.category.categoryName}</TableCell>
             </TableRow>
           ))}
         </TableBody>
