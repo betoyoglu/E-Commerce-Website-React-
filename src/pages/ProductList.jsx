@@ -15,7 +15,7 @@ import {
 import ProductService from "../services/productService";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../store/actions/cartActions";
+import { addToCart, removeFromCart } from "../store/actions/cartActions";
 import {toast} from "react-toastify";
 
 export default function ProductList() {
@@ -35,6 +35,11 @@ export default function ProductList() {
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
     toast.success(`${product.productName} sepete eklendi!`)
+  };
+
+  const handleRemoveFromCart = (product) => {
+    dispatch(removeFromCart(product));
+    toast.error(`${product.productName} sepeten kaldırıldı!`)
   };
 
   //table rowu gelen ürün sayısı kadar tekrar etmem gerekiyor
@@ -70,6 +75,9 @@ export default function ProductList() {
               </TableCell>
               <TableCell>
                 <Button onClick={()=>handleAddToCart(product)}> Sepete ekle</Button>
+              </TableCell>
+              <TableCell>
+                <Button onClick={()=>handleRemoveFromCart(product)}> Sepetten kaldır</Button>
               </TableCell>
             </TableRow>
           ))}
