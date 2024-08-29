@@ -4,8 +4,11 @@ import CartSummary from "./CartSummary";
 import SignedOut from "./SignedOut";
 import SignedIn from "./SignedIn";
 import { useNavigate } from "react-router-dom";
+import {useSelector} from "react-redux"
 
 export default function Navi() {
+  const {cartItems} = useSelector(state => state.cart)
+
   const [isAuthenticated, setIsAuthenticated] = useState(true) //ilk durumda giriş yapmamış
   
   const navigate = useNavigate() //mesela sepetteyken çıkış yaparsa ana sayfaya dönmeyi sağlayacak
@@ -28,7 +31,7 @@ export default function Navi() {
           <MenuItem name="messages" />
 
           <MenuMenu position="right">
-           <CartSummary></CartSummary>
+           {cartItems.length >0 && <CartSummary/>} {/* sadece eleman sayısı 0dan büyükse sepeti gösterecek */}
            {isAuthenticated?<SignedIn signOut= {handleSignedOut} /> : <SignedOut signIn= {handleSignedIn}/>} {/* burada ilk durum yani false döndüğü için signedout */}
           {/* alt komponente bisey={....} ile data geçiyoruz >> props */}
           </MenuMenu>

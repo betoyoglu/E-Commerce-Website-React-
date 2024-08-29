@@ -5,5 +5,4 @@ import {devToolsEnhancer} from "redux-devtools-extension"
 
 export function configureAppStore() {
     return createStore(rootReducer, devToolsEnhancer())
-    
 }

@@ -5,6 +5,7 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import {Provider} from "react-redux"
 import { configureAppStore } from "./store/configureStore";
+import "react-toastify/dist/ReactToastify.min.css"
 
 const store = configureAppStore() //uygulamayı redux altyapısına taşımak için
 const root = ReactDOM.createRoot(document.getElementById("root"));
